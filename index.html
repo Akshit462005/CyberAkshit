@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberAkshit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #383131;
+            background-image: url(background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .logo {
+            height: 60px;
+        }
+        .company-name {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            justify-content: center;
+            text-align: center;
+        }
+        .login-form, .dashboard {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4c77af;
+            color: white;
+            margin-top: 25px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #072565;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task-item {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: left;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+        .team-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .team-section {
+            border: 1px solid black;
+            width: 30%;
+            padding: 10px;
+        }
+        .new-task-form {
+            margin-top: 20px;
+        }
+        .update-button {
+            background-color: #4c77af;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .update-button:hover {
+            background-color:#072565;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.jpeg" alt="Logo" class="logo">
+        <h1 class="company-name">CyberAkshit</h1>
+        <a href="index.html" style="background-color: white;text-decoration: none;color: black;padding: 10px;border-radius: 15px;">Logout</a>
+        <div style="width: 60px;"></div>
+    </div>
+    
+    <div class="container">
+        <div id="loginForm" class="login-form">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="attemptLogin()">Login</button>
+            <p id="loginError" class="error"></p>
+        </div>
+        <div id="employeeDashboard" class="dashboard" style="display:none;">
+            <h2 style="text-decoration: underline;">Welcome Akshit</h2>
+            <div>
+                <p>
+                    Member: Frontend Team
+                </p>
+            </div>
+            <h3>My Tasks</h3>
+            <form id="employeeTasksForm">
+                <div id="employeeTasks" class="task-list"></div>
+                <button type="button" class="update-button" onclick="updateEmployeeTasks()">Update Tasks</button>
+            </form>
+        </div>
+        <div id="adminDashboard" class="dashboard" style="display:none;">
+            <h2>Admin Dashboard</h2>
+            <div class="team-container">
+                <div class="team-section">
+                    <h2>Frontend Team</h2>
+                    <hr>
+                    <p style="font-size: x-small;"> Members: Akshit Verma, Daksh Miglani</p>
+                    <hr>
+                    <h3>Tasks:</h3>
+                    <div id="frontendTasks"></div>
+                    <div class="new-task-form">
+                        <h4>Add New Task</h4>
+                        <input type="text" id="newFrontendTask" placeholder="Task Name">
+                        <input type="date" id="newFrontendDeadline">
+                        <button onclick="addNewTeamTask('frontend')">Add Task</button>
+                    </div>
+                </div>
+                <div class="team-section">
+                    <h2>Backend Team</h2>
+                    <hr>
+                    <p style="font-size: x-small;">Members: Akshit Salwan, Garima</p>
+                    <hr>
+                    <h3>Tasks:</h3>
+                    <div id="backendTasks"></div>
+                    <div class="new-task-form">
+                        <h4>Add New Task</h4>
+                        <input type="text" id="newBackendTask" placeholder="Task Name">
+                        <input type="date" id="newBackendDeadline">
+                        <button onclick="addNewTeamTask('backend')">Add Task</button>
+                    </div>
+                </div>
+                <div class="team-section">
+                    <h2>Social Team</h2>
+                    <hr>
+                    <p style="font-size: x-small;">Members: Aditya, Ridhima</p>
+                    <hr>
+                    <h3>Tasks:</h3>
+                    <div id="socialTasks"></div>
+                    <div class="new-task-form">
+                        <h4>Add New Task</h4>
+                        <input type="text" id="newSocialTask" placeholder="Task Name">
+                        <input type="date" id="newSocialDeadline">
+                        <button onclick="addNewTeamTask('social')">Add Task</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var users = [
+            { id: 1, username: "admin", password: "admin123", role: "admin" },
+            { id: 2, username: "employee1", password: "emp123", role: "employee" }
+        ];
+
+        var tasks = [
+            { id: 1, name: "Complete project proposal", description: "Draft and submit the project proposal by Friday", assignedTo: 2, completed: false },
+            { id: 2, name: "Review code changes", description: "Review and approve recent code changes", assignedTo: 2, completed: false },
+            { id: 3, name: "Update documentation", description: "Update the user manual with recent feature additions", assignedTo: 2, completed: false },
+            { id: 4, name: "Prepare presentation", description: "Create slides for the upcoming client meeting", assignedTo: 2, completed: false },
+            { id: 5, name: "Attend team meeting", description: "Participate in weekly team sync-up at 2 PM", assignedTo: 2, completed: false }
+        ];
+
+        var teamTasks = {
+            frontend: [
+                { id: 1, name: "Design new landing page", deadline: "2024-09-20", completed: false },
+                { id: 2, name: "Implement responsive navbar", deadline: "2024-09-25", completed: true }
+            ],
+            backend: [
+                { id: 1, name: "Optimize database queries", deadline: "2024-09-22", completed: false },
+                { id: 2, name: "Implement user authentication", deadline: "2024-09-28", completed: true }
+            ],
+            social: [
+                { id: 1, name: "Create social media calendar", deadline: "2024-09-18", completed: true },
+                { id: 2, name: "Design promotional graphics", deadline: "2024-09-23", completed: false }
+            ]
+        };
+
+        var currentUser = null;
+
+        function login(username, password) {
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].username === username && users[i].password === password) {
+                    currentUser = users[i];
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function getEmployeeTasks(userId) {
+            return tasks.filter(task => task.assignedTo === userId);
+        }
+
+        function attemptLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            if (login(username, password)) {
+                document.getElementById('loginForm').style.display = 'none';
+                if (currentUser.role === 'admin') {
+                    document.getElementById('adminDashboard').style.display = 'block';
+                    displayTeamTasks();
+                } else {
+                    document.getElementById('employeeDashboard').style.display = 'block';
+                    displayEmployeeTasks();
+                }
+            } else {
+                document.getElementById('loginError').textContent = 'Invalid username or password';
+            }
+        }
+
+        function displayEmployeeTasks() {
+            var taskList = document.getElementById('employeeTasks');
+            taskList.innerHTML = '';
+            var employeeTasks = getEmployeeTasks(currentUser.id);
+            employeeTasks.forEach(task => {
+                var div = document.createElement('div');
+                div.className = 'task-item';
+                div.innerHTML = `
+                    <input type="radio" id="task_${task.id}" name="task_${task.id}" ${task.completed ? 'checked' : ''}>
+                    <label for="task_${task.id}">${task.name}: ${task.description}</label>
+                `;
+                taskList.appendChild(div);
+            });
+        }
+
+        function updateEmployeeTasks() {
+            var employeeTasks = getEmployeeTasks(currentUser.id);
+            employeeTasks.forEach(task => {
+                var radioButton = document.querySelector(`input[id="task_${task.id}"]`);
+                if (radioButton) {
+                    task.completed = radioButton.checked;
+                }
+            });
+            alert('Tasks updated successfully!');
+        }
+
+        function displayTeamTasks() {
+            displayTasksForTeam('frontend');
+            displayTasksForTeam('backend');
+            displayTasksForTeam('social');
+        }
+
+        function displayTasksForTeam(team) {
+            var tasksContainer = document.getElementById(team + 'Tasks');
+            tasksContainer.innerHTML = '';
+            teamTasks[team].forEach(task => {
+                var taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+                taskElement.innerHTML = `
+                    <input type="radio" id="${team}_task_${task.id}" name="${team}_task_${task.id}" ${task.completed ? 'checked' : ''} onchange="updateTaskStatus('${team}', ${task.id}, this.checked)">
+                    <label for="${team}_task_${task.id}">${task.name} (Deadline: ${task.deadline})</label>
+                `;
+                tasksContainer.appendChild(taskElement);
+            });
+        }
+
+        function updateTaskStatus(team, taskId, completed) {
+            var task = teamTasks[team].find(t => t.id === taskId);
+            if (task) {
+                task.completed = completed;
+            }
+        }
+
+        function addNewTeamTask(team) {
+            var taskName = document.getElementById('new' + team.charAt(0).toUpperCase() + team.slice(1) + 'Task').value;
+            var taskDeadline = document.getElementById('new' + team.charAt(0).toUpperCase() + team.slice(1) + 'Deadline').value;
+            if (taskName && taskDeadline) {
+                var newTask = {
+                    id: teamTasks[team].length + 1,
+                    name: taskName,
+                    deadline: taskDeadline,
+                    completed: false
+                };
+                teamTasks[team].push(newTask);
+                displayTasksForTeam(team);
+                document.getElementById('new' + team.charAt(0).toUpperCase() + team.slice(1) + 'Task').value = '';
+                document.getElementById('new' + team.charAt(0).toUpperCase() + team.slice(1) + 'Deadline').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
