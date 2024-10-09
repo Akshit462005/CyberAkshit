@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             background-color: #383131;
-            background-image: url(background.jpg);
+            background-image: url(https://images.rawpixel.com/image_450/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjU0NmJhdGNoMy1teW50LTM0LWJhZGdld2F0ZXJjb2xvcl8xLmpwZw.jpg);
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -19,7 +19,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            background-color: rgba(0, 0, 0, 0.8);
+            color: black;
         }
         .logo {
             height: 60px;
@@ -42,7 +42,7 @@
         .login-form, .dashboard {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 5px;
+            border-radius: 25px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-top: 20px;
         }
@@ -78,7 +78,7 @@
             text-align: left;
         }
         .error {
-            color: red;
+            color: rgb(0, 0, 0);
             margin-top: 20px;
         }
         .team-container {
@@ -111,13 +111,13 @@
 <body>
     <div class="header">
         <img src="logo.jpeg" alt="Logo" class="logo">
-        <h1 class="company-name">CyberAkshit</h1>
+        <h1 class="company-name" style="color: black;">CyberAkshit</h1>
         <a href="index.html" style="background-color: white;text-decoration: none;color: black;padding: 10px;border-radius: 15px;">Logout</a>
         <div style="width: 60px;"></div>
     </div>
     
     <div class="container">
-        <div id="loginForm" class="login-form">
+        <div id="loginForm" class="login-form" style="max-width: 600px;">
             <h2>Login</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
